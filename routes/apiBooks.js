@@ -78,17 +78,30 @@ router.post('/add', async function (req, res, next) {
     const name = req.body.name;
     const author = req.body.author;
     const id = req.body.id;
+
+    const form_data = {
+        name: name,
+        author: author,
+      }
     try{
+        const response = await fetch(`http://localhost:1337/books/${id}`, {
+            method: 'put',
+            body:    JSON.stringify(form_data),
+            headers: { 'Content-Type': 'application/json' },
+        });
+    const data = await response.json();
     //   await db.query('UPDATE books SET name = ?, author = ? WHERE id = ?', [
     //     name,
     //     author,
     //     id,
     //   ]);
     //res.status(200).json({message: 'Updating successful'});
-        res.redirect('/books');
+    res.redirect('/apiBooks');
     }catch(err){
       console.log(err);
     }
   });
+
+
 
 module.exports = router;
