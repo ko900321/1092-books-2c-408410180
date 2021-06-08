@@ -102,6 +102,18 @@ router.post('/add', async function (req, res, next) {
     }
   });
 
-
+router.get('/delete/:id', async function (req, res, next) {
+    let id = req.params.id; 
+    try {
+        const response = await fetch(`http://localhost:1337/books/${id}`, {
+            method: 'delete',
+        });
+    const data = await response.json();
+    //   await db.query('DELETE FROM books WHERE id = ?', [id]);
+    } catch (err) {
+      console.log(err);
+    }
+    res.redirect('/apiBooks');
+});
 
 module.exports = router;
